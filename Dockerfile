@@ -21,7 +21,6 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-RUN apk add --no-cache tini
 
 # node_modules（含 devDeps，因为 npm run start 需要 concurrently + tsx）
 COPY --from=builder /app/node_modules ./node_modules
@@ -54,5 +53,4 @@ RUN mkdir -p /app/data/uploads /app/logs && touch /app/.env
 
 EXPOSE 3000 3010
 
-ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["npm", "run", "start"]
